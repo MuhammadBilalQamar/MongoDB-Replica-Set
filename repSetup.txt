@@ -1,0 +1,29 @@
+- goto directory and create one folder called data and inside data create three more folders rs1,rs2,rs3
+
+- then goto this path "C:\Program Files\MongoDB\Server\6.0\bin" and run following commands.
+
+
+start mongod -replSet myserver -logpath \data\rs1\1.log --dbpath \data\rs1 --port 27018
+
+start mongod -replSet myserver -logpath \data\rs2\2.log --dbpath \data\rs2 --port 27019
+
+start mongod -replSet myserver -logpath \data\rs3\3.log --dbpath \data\rs3 --port 27020
+
+
+Note:- (its totally depends on you how much replication members do you want to create. in my case I have created 3 members rs1, rs2, rs3)
+
+
+
+======For first time setup======
+open mongosh
+
+mongosh --port 27018
+config={_id:"myserver", members:[{_id:0,host:"localhost:27018"},{_id:1,host:"localhost:27019"},{_id:2,host:"localhost:27020"}]}
+rs.initiate(config)
+rs.status()
+
+
+
+
+==============================================
+Refrence: https://www.mongodb.com/docs/manual/tutorial/convert-standalone-to-replica-set/
